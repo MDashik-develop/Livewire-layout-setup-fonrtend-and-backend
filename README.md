@@ -32,6 +32,26 @@ Here is the core logic, typically placed in resources/views/components/layouts/a
     </x-layouts.app.frontend>
 @endif
 
+
+or
+
+
+@php
+    // Determine the layout type based on the route name
+    $layout = request()->routeIs('backend.*') ? 'backend' : 'frontend';
+@endphp
+
+{{-- Dynamically render the correct layout component --}}
+<x-dynamic-component :component="'layouts.app.' . $layout" :title="$title ?? null">
+    <main>
+        {{ $slot }}
+    </main>
+</x-dynamic-component>
+
+
+
+
+
 Required File Structure
 For the above code to work, your layout files must be organized correctly inside the resources/views/components/ directory.
 
